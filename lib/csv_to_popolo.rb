@@ -35,6 +35,7 @@ class Popolo
     chamber: {
       aliases: %w(house)
     },
+    council: { },
     death_date: {
       aliases: %w(dod date_of_death),
       type: 'asis'
