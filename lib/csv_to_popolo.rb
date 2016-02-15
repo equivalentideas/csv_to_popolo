@@ -212,7 +212,7 @@ class Popolo
 
     def memberships
       if councils.any?
-        council_memberships + executive_memberships
+        council_memberships + council_executive_memberships
       else
         legislative_memberships + executive_memberships
       end
@@ -320,6 +320,18 @@ class Popolo
         end
       else
         []
+      end
+    end
+
+    def council_executive_memberships
+      @council_emems ||= @csv.select { |r| r.key?(:executive) && !r[:executive].to_s.empty? }.map do |r|
+        mem = {
+          person_id:          r[:id],
+          organization_id:    find_council_id(r[:council]),
+          role:               r[:executive]
+        }
+        mem[:legislative_period] = "term/#{_idify(r[:term])}" if r.key? :term
+        mem
       end
     end
 

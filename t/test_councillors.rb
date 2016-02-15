@@ -18,6 +18,29 @@ describe 'councillors' do
 
       member_org[:name].must_equal 'Albury City Council'
     end
+
+    it 'only has one membership as they are a non-executive councillor' do
+      assert memberships.count == 1
+    end
+  end
+
+  describe 'Kevin Mack' do
+    let(:kevin) { subject.data[:persons][0] }
+    let(:memberships) do
+      subject.data[:memberships].select { |m| m[:person_id] == kevin[:id] }
+    end
+
+    it 'has two memberships of their council' do
+      number_of_memberships_for_albury_council = memberships.count do |m|
+        m[:organization_id] == "legislature/albury_city_council"
+      end
+
+      assert number_of_memberships_for_albury_council == 2
+    end
+
+    it 'has the role of “Mayor”' do
+      assert memberships.any? { |m| m[:role] == 'Mayor' }
+    end
   end
 
   describe 'Albury City Council' do
