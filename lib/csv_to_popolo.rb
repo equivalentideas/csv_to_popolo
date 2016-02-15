@@ -202,7 +202,7 @@ class Popolo
     end
 
     def organizations
-      parties + chambers + legislatures + executive
+      councils + parties + chambers + legislatures + executive
     end
 
     def memberships
@@ -225,6 +225,16 @@ class Popolo
           id: r[:group_id] || "party/#{_idify(r[:group])}",
           name: r[:group],
           classification: 'party'
+        }
+      end
+    end
+
+    def councils
+      @_councils ||= @csv.select { |r| r.key? :council }.uniq { |r| r.key?(:council_id) ? r[:council_id] : r[:council] }.map do |r|
+        {
+          id: r[:council_id] || "legislature/#{_idify(r[:council])}",
+          name: r[:council],
+          classification: 'legislature'
         }
       end
     end
@@ -318,6 +328,10 @@ class Popolo
 
     def find_party_id(name)
       (parties.find { |p| p[:name] == name } || return)[:id]
+    end
+
+    def find_council_id(name)
+      (councils.find { |p| p[:name] == name } || return)[:id]
     end
 
     def find_chamber_id(name)

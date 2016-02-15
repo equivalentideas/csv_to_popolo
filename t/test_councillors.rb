@@ -19,4 +19,12 @@ describe 'councillors' do
       member_org[:name].must_equal 'Albury City Council'
     end
   end
+
+  describe 'Albury City Council' do
+    it 'has the correct classification' do
+      albury_council = organizations[0]
+
+      albury_council[:classification].must_equal 'legislature'
+    end
+  end
 end
