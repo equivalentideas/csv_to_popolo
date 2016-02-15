@@ -14,7 +14,7 @@ describe 'councillors' do
 
     it 'is associated with the correct council' do
       leg_mem = memberships.find { |m| m[:role] == 'member' }
-      member_org = organizations.find { |o| o[:id] == leg_mem[:on_behalf_of_id] }
+      member_org = organizations.find { |o| o[:id] == leg_mem[:organization_id] }
 
       member_org[:name].must_equal 'Albury City Council'
     end
