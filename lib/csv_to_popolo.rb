@@ -206,7 +206,11 @@ class Popolo
     end
 
     def memberships
-      legislative_memberships + executive_memberships
+      if councils.any?
+        council_memberships + executive_memberships
+      else
+        legislative_memberships + executive_memberships
+      end
     end
 
     def areas
