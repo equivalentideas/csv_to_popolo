@@ -294,6 +294,26 @@ class Popolo
       end
     end
 
+    def council_memberships
+      if councils.any?
+        @csv.map do |r|
+          mem = {
+            person_id:          r[:id],
+            organization_id:    find_council_id(r[:council]),
+            role:               'member',
+            on_behalf_of_id:    r[:group_id] || find_party_id(r[:group]),
+            area_id:            !r[:area_id].to_s.empty? ? r[:area_id] : !r[:area].to_s.empty? ? "area/#{_idify(r[:area])}" : nil,
+            start_date:         r[:start_date],
+            end_date:           r[:end_date]
+          }.select { |_, v| !v.nil? }
+          mem[:legislative_period_id] = "term/#{_idify(r[:term])}" if r.key? :term
+          mem
+        end
+      else
+        []
+      end
+    end
+
     def executive_memberships
       @_emems ||= @csv.select { |r| r.key?(:executive) && !r[:executive].to_s.empty? }.map do |r|
         mem = {
