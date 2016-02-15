@@ -309,7 +309,7 @@ class Popolo
           mem = {
             person_id:          r[:id],
             organization_id:    find_council_id(r[:council]),
-            role:               'member',
+            role:               'councillor',
             on_behalf_of_id:    r[:group_id] || find_party_id(r[:group]),
             area_id:            !r[:area_id].to_s.empty? ? r[:area_id] : !r[:area].to_s.empty? ? "area/#{_idify(r[:area])}" : nil,
             start_date:         r[:start_date],
