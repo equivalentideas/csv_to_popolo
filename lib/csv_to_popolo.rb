@@ -202,7 +202,11 @@ class Popolo
     end
 
     def organizations
-      councils + parties + chambers + legislatures + executive
+      if councils.any?
+        councils + parties + chambers + executive
+      else
+        parties + chambers + legislatures + executive
+      end
     end
 
     def memberships

@@ -27,4 +27,9 @@ describe 'councillors' do
       albury_council[:classification].must_equal 'legislature'
     end
   end
+
+  it 'does not create a default legislature' do
+    assert(organizations.none? { |org| org[:name] == "Legislature" },
+           'There are no organizations with default name "Legislature"')
+  end
 end
