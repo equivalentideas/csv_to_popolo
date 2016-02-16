@@ -56,6 +56,11 @@ describe 'councillors' do
            'There are no organizations with default name "Legislature"')
   end
 
+  it 'does not create a default executive organization' do
+    assert(organizations.none? { |org| org[:name] == "Executive" },
+           'There are no organizations with default name "Executive"')
+  end
+
   describe 'validation' do
     it 'does not say it has skipped the "council" column' do
       skipped_columns = subject.data[:warnings][:skipped]

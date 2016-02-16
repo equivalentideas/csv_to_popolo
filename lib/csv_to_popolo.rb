@@ -204,7 +204,7 @@ class Popolo
 
     def organizations
       if councils.any?
-        councils + parties + chambers + executive
+        councils + parties + chambers
       else
         parties + chambers + legislatures + executive
       end
