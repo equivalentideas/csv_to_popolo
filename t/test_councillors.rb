@@ -2,7 +2,7 @@ require 'csv_to_popolo'
 require 'minitest/autorun'
 require 'json'
 
-describe 'councillors' do
+describe 'councillors.csv' do
   subject     { Popolo::CSV.new('t/data/councillors.csv') }
   let(:organizations)  { subject.data[:organizations] }
 
